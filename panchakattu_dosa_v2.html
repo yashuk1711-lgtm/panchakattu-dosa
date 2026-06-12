@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panchakattu Dosa — Authentic Rayalaseema Breakfast | Hyderabad</title>
+<meta name="description" content="Authentic Rayalaseema-style dosas, idlys and filter coffee. From Tadipatri to Hyderabad. 6 outlets across the city.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --orange: #F26B21;
+    --orange-deep: #D9531A;
+    --orange-soft: #FA8C4A;
+    --cream: #FFF6EC;
+    --cream-2: #FDEEDD;
+    --brown: #3D2314;
+    --brown-mid: #6B4630;
+    --brown-soft: #9A7560;
+    --green: #2E7D4F;
+    --border: rgba(61,35,20,0.12);
+    --border-strong: rgba(61,35,20,0.25);
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--brown);
+    font-family: var(--font-display);
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(242,107,33,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(242,107,33,0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(255,246,236,0.85);
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    color: var(--brown);
+  }
+
+  .nav-logo span { color: var(--orange); }
+
+  .nav-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--brown-mid);
+    letter-spacing: 0.1em;
+  }
+
+  .status-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--brown-mid);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--orange-deep); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 130px 48px 80px;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--orange-deep);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-size: clamp(56px, 11vw, 148px);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title .line1 { display: block; color: var(--brown); }
+  .hero-title .line2 {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--orange);
+  }
+
+  .hero-sub {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--brown-mid);
+    letter-spacing: 0.08em;
+    text-align: center;
+    max-width: 460px;
+    line-height: 1.8;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  /* FLOATING DOSA STAGE */
+  .dosa-stage {
+    position: relative;
+    width: 320px;
+    height: 300px;
+    margin: 0 auto 56px;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s forwards;
+  }
+
+  .dosa-orbit {
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(242,107,33,0.25);
+    border-radius: 50%;
+    animation: orbitSpin 14s linear infinite;
+  }
+
+  .dosa-orbit::before {
+    content: '';
+    position: absolute;
+    top: -4px; left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+
+  .dosa-orbit-2 {
+    inset: 28px;
+    animation: orbitSpin 9s linear infinite reverse;
+    border-color: rgba(46,125,79,0.2);
+  }
+
+  .dosa-orbit-2::before { background: var(--green); }
+
+  @keyframes orbitSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .dosa-core {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 190px;
+    height: 190px;
+    margin: -95px 0 0 -95px;
+    animation: float 4.5s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1.5deg); }
+    66% { transform: translateY(-5px) rotate(-1deg); }
+  }
+
+  .data-tag {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--orange-deep);
+    letter-spacing: 0.08em;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid rgba(242,107,33,0.3);
+    padding: 5px 9px;
+    border-radius: 3px;
+    white-space: nowrap;
+    animation: tagFloat 3s ease-in-out infinite;
+    z-index: 3;
+  }
+
+  .data-tag:nth-of-type(3) { top: 18px; left: -28px; animation-delay: 0s; }
+  .data-tag:nth-of-type(4) { top: 44px; right: -56px; animation-delay: 0.5s; }
+  .data-tag:nth-of-type(5) { bottom: 52px; left: -64px; animation-delay: 1s; }
+  .data-tag:nth-of-type(6) { bottom: 24px; right: -30px; animation-delay: 1.5s; }
+
+  @keyframes tagFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.1s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 34px;
+    background: var(--orange);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--orange-deep);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 34px;
+    border: 1px solid var(--border-strong);
+    color: var(--brown-mid);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background: transparent;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--orange);
+    color: var(--orange-deep);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.8s 1.5s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 36px;
+    background: linear-gradient(to bottom, var(--orange), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 110px 48px;
+  }
+
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    color: var(--orange-deep);
+    text-transform: uppercase;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--orange);
+  }
+
+  /* STATS STRIP */
+  .stats-section {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 0;
+    background: #fff;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .stat-cell {
+    padding: 52px 40px;
+    border-right: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell:hover { background: var(--cream); }
+
+  .stat-number {
+    font-size: 54px;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--brown);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .stat-number span { color: var(--orange); font-size: 30px; }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.13em;
+    color: var(--brown-mid);
+    text-transform: uppercase;
+  }
+
+  .stat-cell::after {
+    content: attr(data-index);
+    position: absolute;
+    bottom: 14px;
+    right: 18px;
+    font-family: var(--font-mono);
+    font-size: 44px;
+    font-weight: 700;
+    color: rgba(61,35,20,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* STORY */
+  .reveal-section {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 100px;
+    align-items: center;
+  }
+
+  .reveal-title {
+    font-size: clamp(38px, 5vw, 68px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 30px;
+  }
+
+  .reveal-title em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1.2px var(--orange);
+  }
+
+  .reveal-body {
+    font-size: 16px;
+    line-height: 1.85;
+    color: var(--brown-mid);
+    margin-bottom: 36px;
+  }
+
+  .spec-list { list-style: none; }
+
+  .spec-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .spec-item .spec-key { color: var(--brown-soft); letter-spacing: 0.1em; flex-shrink: 0; }
+  .spec-item .spec-val { color: var(--orange-deep); letter-spacing: 0.03em; text-align: right; }
+
+  .photo-slot {
+    background: var(--cream-2);
+    border: 1.5px dashed rgba(242,107,33,0.4);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 420px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .photo-slot .slot-icon { font-size: 32px; color: var(--orange); opacity: 0.5; }
+
+  /* MENU */
+  .menu-section { background: var(--brown); color: var(--cream); }
+
+  .menu-section .section-eyebrow { color: var(--orange-soft); }
+  .menu-section .section-eyebrow::before { background: var(--orange-soft); }
+
+  .menu-header {
+    max-width: 1180px;
+    margin: 0 auto 56px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .menu-title {
+    font-size: clamp(32px, 4.5vw, 60px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: #fff;
+  }
+
+  .menu-title em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--orange-soft);
+  }
+
+  .menu-note {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: rgba(255,246,236,0.55);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: right;
+    line-height: 2;
+  }
+
+  .menu-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .menu-category {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,246,236,0.12);
+    border-radius: 8px;
+    padding: 30px 26px;
+    transition: border-color 0.25s, background 0.25s;
+  }
+
+  .menu-category:hover {
+    border-color: rgba(242,107,33,0.5);
+    background: rgba(242,107,33,0.06);
+  }
+
+  .menu-category.featured {
+    grid-column: span 2;
+    border-color: rgba(242,107,33,0.55);
+    background: rgba(242,107,33,0.08);
+  }
+
+  .menu-cat-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,246,236,0.12);
+  }
+
+  .menu-cat-name {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #fff;
+  }
+
+  .menu-cat-tag {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    color: var(--orange-soft);
+    border: 1px solid rgba(242,107,33,0.45);
+    padding: 4px 9px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .menu-items { list-style: none; }
+
+  .menu-item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 0;
+    font-size: 14.5px;
+  }
+
+  .menu-item .item-name { color: rgba(255,246,236,0.88); }
+  .menu-item .item-name small {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: rgba(255,246,236,0.4);
+    margin-left: 6px;
+  }
+
+  .menu-item .item-dots {
+    flex: 1;
+    border-bottom: 1px dotted rgba(255,246,236,0.18);
+    transform: translateY(-3px);
+  }
+
+  .menu-item .item-price {
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--orange-soft);
+    white-space: nowrap;
+  }
+
+  .menu-star { color: var(--orange-soft); font-size: 11px; margin-right: 5px; }
+
+  .menu-tax-note {
+    max-width: 1180px;
+    margin: 28px auto 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: rgba(255,246,236,0.4);
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  /* PHOTO GALLERY STRIP */
+  .gallery-section { padding: 80px 48px; }
+
+  .gallery-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .gallery-slot {
+    background: var(--cream-2);
+    border: 1.5px dashed rgba(242,107,33,0.4);
+    border-radius: 8px;
+    aspect-ratio: 4/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 16px;
+  }
+
+  /* MANIFESTO */
+  .manifesto-section {
+    text-align: center;
+    padding: 130px 48px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .manifesto-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .manifesto-text {
+    font-size: clamp(26px, 3.8vw, 46px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.35;
+    max-width: 880px;
+    margin: 0 auto;
+    color: var(--brown-mid);
+  }
+
+  .manifesto-text strong { color: var(--brown); font-weight: 700; }
+  .manifesto-text .org { color: var(--orange-deep); }
+
+  /* LOCATIONS */
+  .loc-section { max-width: 1180px; margin: 0 auto; }
+
+  .loc-title {
+    font-size: clamp(34px, 4.5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+  }
+
+  .loc-sub {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--brown-mid);
+    letter-spacing: 0.08em;
+    margin-bottom: 48px;
+  }
+
+  .loc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 48px;
+  }
+
+  .loc-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 26px 24px;
+    transition: all 0.25s;
+    position: relative;
+  }
+
+  .loc-card:hover {
+    border-color: var(--orange);
+    transform: translateY(-3px);
+  }
+
+  .loc-card-index {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--orange-deep);
+    margin-bottom: 12px;
+  }
+
+  .loc-card-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .loc-card-city {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--brown-soft);
+    letter-spacing: 0.1em;
+    margin-bottom: 18px;
+  }
+
+  .loc-card a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--orange-deep);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .loc-card a:hover { text-decoration: underline; }
+
+  .hours-strip {
+    background: var(--cream-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 28px 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .hours-block .h-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--brown-soft);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hours-block .h-val {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--brown);
+  }
+
+  .hours-block .h-val.accent { color: var(--orange-deep); }
+
+  .hours-note {
+    grid-column: 1 / -1;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--brown-soft);
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+  }
+
+  .footer-brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--brown);
+  }
+
+  .footer-brand span { color: var(--orange); }
+
+  .footer-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--brown-mid);
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .footer-links a:hover { color: var(--orange-deep); }
+
+  .footer-meta {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--brown-soft);
+    letter-spacing: 0.1em;
+  }
+
+  @media (max-width: 900px) {
+    .menu-grid { grid-template-columns: 1fr 1fr; }
+    .menu-category.featured { grid-column: span 2; }
+    .loc-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section { padding: 72px 20px; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stat-cell { border-right: none; border-bottom: 1px solid var(--border); padding: 36px 24px; }
+    .reveal-section { grid-template-columns: 1fr; gap: 48px; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .menu-category.featured { grid-column: span 1; }
+    .loc-grid { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .hours-strip { grid-template-columns: 1fr; }
+    .data-tag:nth-of-type(4) { right: -10px; }
+    .data-tag:nth-of-type(5) { left: -10px; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Panchakattu <span>Dosa</span></div>
+  <div class="nav-status">
+    <div class="status-dot"></div>
+    6 OUTLETS — HYDERABAD
+  </div>
+  <ul class="nav-links">
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#locations">Locations</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">↳ AUTHENTIC RAYALASEEMA BREAKFAST — TADIPATRI TO HYDERABAD</div>
+
+  <h1 class="hero-title">
+    <span class="line1">PANCHA</span>
+    <span class="line2">KATTU</span>
+  </h1>
+
+  <div class="dosa-stage">
+    <div class="dosa-orbit"></div>
+    <div class="dosa-orbit dosa-orbit-2"></div>
+
+    <div class="data-tag">NEYYI: GENEROUS</div>
+    <div class="data-tag">KAARAM: RAYALASEEMA</div>
+    <div class="data-tag">FROM ₹55</div>
+    <div class="data-tag">3 CHUTNEYS, ALWAYS</div>
+
+    <div class="dosa-core">
+      <svg viewBox="0 0 190 190" width="190" height="190" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="dosaGrad" cx="40%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="#F4C770"/>
+            <stop offset="45%" stop-color="#E09A3E"/>
+            <stop offset="85%" stop-color="#B86A1E"/>
+            <stop offset="100%" stop-color="#8A4A10"/>
+          </radialGradient>
+          <radialGradient id="leafG" cx="50%" cy="35%" r="60%">
+            <stop offset="0%" stop-color="#4A9A4A"/>
+            <stop offset="100%" stop-color="#1E5A22"/>
+          </radialGradient>
+          <radialGradient id="kaaramG" cx="50%" cy="40%" r="50%">
+            <stop offset="0%" stop-color="#D9531A"/>
+            <stop offset="100%" stop-color="#92300A"/>
+          </radialGradient>
+          <filter id="crispTex">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" result="n"/>
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="2"/>
+          </filter>
+        </defs>
+        <ellipse cx="95" cy="168" rx="74" ry="8" fill="rgba(61,35,20,0.18)"/>
+        <path d="M 18 110 Q 95 58 172 110 Q 145 162 95 170 Q 45 162 18 110 Z"
+              fill="url(#leafG)"/>
+        <path d="M 95 70 L 95 166" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M 95 92 Q 128 100 152 112" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+        <path d="M 95 92 Q 62 100 38 112" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+        <path d="M 95 112 Q 122 119 142 128" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <path d="M 95 112 Q 68 119 48 128" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        <path d="M 48 118 Q 62 90 95 80 Q 128 70 150 95 Q 162 113 150 130 Q 136 150 95 155 Q 56 158 44 138 Q 38 127 48 118 Z"
+              fill="url(#dosaGrad)" filter="url(#crispTex)"/>
+        <path d="M 48 118 Q 62 90 95 80 Q 128 70 150 95"
+              fill="none" stroke="#F4C770" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+        <ellipse cx="95" cy="118" rx="16" ry="8" fill="url(#kaaramG)" opacity="0.95"/>
+        <path d="M 60 132 Q 80 120 105 114 Q 128 109 142 120"
+              fill="none" stroke="rgba(255,235,180,0.45)" stroke-width="1" stroke-dasharray="3,4"/>
+        <text x="95" y="184" text-anchor="middle" font-family="monospace" font-size="8"
+              fill="rgba(217,83,26,0.7)" letter-spacing="2">NEYYI KAARAM DOSA</text>
+      </svg>
+    </div>
+  </div>
+
+  <p class="hero-sub">Rayalaseema-style dosas, idlys and filter coffee.<br>Born in Tadipatri. Loved across Hyderabad.</p>
+
+  <div class="hero-cta">
+    <a href="#menu" class="btn-primary">SEE MENU →</a>
+    <a href="#locations" class="btn-outline">FIND AN OUTLET</a>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-section">
+  <div class="stats-grid">
+    <div class="stat-cell" data-index="01">
+      <div class="stat-number">6</div>
+      <div class="stat-label">Outlets Across Hyderabad</div>
+    </div>
+    <div class="stat-cell" data-index="02">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Chutneys With Every Plate</div>
+    </div>
+    <div class="stat-cell" data-index="03">
+      <div class="stat-number">₹20</div>
+      <div class="stat-label">Filter Coffee</div>
+    </div>
+    <div class="stat-cell" data-index="04">
+      <div class="stat-number">1</div>
+      <div class="stat-label">Recipe — From Tadipatri</div>
+    </div>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story">
+  <div class="reveal-section">
+    <div>
+      <div class="section-eyebrow">THE_STORY</div>
+      <h2 class="reveal-title">Named after<br>a man in<br>a <em>dhoti.</em></h2>
+      <p class="reveal-body">
+        Panchakattu means dhoti in Telugu. The founder, an IT manager who quit his job for dosas, learned the craft from a nameless dosa maker in Tadipatri — a man known only by what he wore. The shack had no name, so this one carries his.
+      </p>
+      <p class="reveal-body" style="margin-bottom: 36px;">
+        The menu stays deliberately small. No 60-item list. Just Rayalaseema-style dosas, idlys and pongal, done the way they're done back home — generous neyyi, proper kaaram, served on a leaf.
+      </p>
+      <ul class="spec-list">
+        <li class="spec-item">
+          <span class="spec-key">ORIGIN</span>
+          <span class="spec-val">Tadipatri, Andhra Pradesh</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-key">STYLE</span>
+          <span class="spec-val">Rayalaseema breakfast</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-key">SIGNATURE</span>
+          <span class="spec-val">Neyyi Kaaram Dosa</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-key">SERVED_WITH</span>
+          <span class="spec-val">Coconut, tomato + Bombay chutney</span>
+        </li>
+        <li class="spec-item">
+          <span class="spec-key">MENU_SIZE</span>
+          <span class="spec-val">Small. On purpose.</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="photo-slot">
+      <div class="slot-icon">⛶</div>
+      <div>PHOTO SLOT — HERO SHOT</div>
+      <div style="font-size: 9px; opacity: 0.7; text-transform: none; letter-spacing: 0.05em;">Best: close-up of Neyyi Kaaram Dosa on the leaf, ghee visible. Portrait or 3:4.</div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu" class="menu-section">
+  <div class="menu-header">
+    <div>
+      <div class="section-eyebrow">THE_MENU</div>
+      <h2 class="menu-title">Small menu.<br><em>Zero compromise.</em></h2>
+    </div>
+    <div class="menu-note">★ = MOST ORDERED<br>UTHAPPAM TAKES 20 MIN — WORTH IT</div>
+  </div>
+
+  <div class="menu-grid">
+    <!-- FEATURED: RAYALASEEMA SPECIALS -->
+    <div class="menu-category featured">
+      <div class="menu-cat-head">
+        <div class="menu-cat-name">Raayalaseema Special's</div>
+        <div class="menu-cat-tag">THE REASON YOU'RE HERE</div>
+      </div>
+      <ul class="menu-items" style="columns: 2; column-gap: 32px;">
+        <li class="menu-item"><span class="item-name"><span class="menu-star">★</span>Neyyi Kaaram Dosa</span><span class="item-dots"></span><span class="item-price">₹85</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Kaaram Palyam Dosa</span><span class="item-dots"></span><span class="item-price">₹95</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Kaaram Upma Dosa</span><span class="item-dots"></span><span class="item-price">₹95</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Kaaram Onion Dosa</span><span class="item-dots"></span><span class="item-price">₹95</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Plain Palyam Dosa</span><span class="item-dots"></span><span class="item-price">₹95</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Plain Onion Dosa</span><span class="item-dots"></span><span class="item-price">₹95</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Plain Upma Dosa</span><span class="item-dots"></span><span class="item-price">₹95</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Plain Uthappam <small>20 MIN</small></span><span class="item-dots"></span><span class="item-price">₹105</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Uthappam <small>20 MIN</small></span><span class="item-dots"></span><span class="item-price">₹105</span></li>
+      </ul>
+    </div>
+
+    <!-- IDLYS -->
+    <div class="menu-category">
+      <div class="menu-cat-head">
+        <div class="menu-cat-name">Idly's</div>
+        <div class="menu-cat-tag">SOFT + SOAKED</div>
+      </div>
+      <ul class="menu-items">
+        <li class="menu-item"><span class="item-name">Idly (2)</span><span class="item-dots"></span><span class="item-price">₹45</span></li>
+        <li class="menu-item"><span class="item-name"><span class="menu-star">★</span>Neyyi Kaaram Idly (2)</span><span class="item-dots"></span><span class="item-price">₹75</span></li>
+        <li class="menu-item"><span class="item-name">Neyyi Pongal</span><span class="item-dots"></span><span class="item-price">₹75</span></li>
+        <li class="menu-item"><span class="item-name">Upma</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+      </ul>
+    </div>
+
+    <!-- DOSAS -->
+    <div class="menu-category">
+      <div class="menu-cat-head">
+        <div class="menu-cat-name">Dosa's</div>
+        <div class="menu-cat-tag">CRISP + FLUFFY</div>
+      </div>
+      <ul class="menu-items">
+        <li class="menu-item"><span class="item-name">Palyam Dosa</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+        <li class="menu-item"><span class="item-name">Upma Dosa</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+        <li class="menu-item"><span class="item-name">Onion Dosa</span><span class="item-dots"></span><span class="item-price">₹65</span></li>
+        <li class="menu-item"><span class="item-name">Plain Palyam Dosa</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+        <li class="menu-item"><span class="item-name">Plain Upma Dosa</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+        <li class="menu-item"><span class="item-name">Plain Onion Dosa</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+        <li class="menu-item"><span class="item-name">Uthappam <small>20 MIN</small></span><span class="item-dots"></span><span class="item-price">₹75</span></li>
+        <li class="menu-item"><span class="item-name">Plain Uthappam</span><span class="item-dots"></span><span class="item-price">₹75</span></li>
+      </ul>
+    </div>
+
+    <!-- COOLERS -->
+    <div class="menu-category">
+      <div class="menu-cat-head">
+        <div class="menu-cat-name">Cooler's</div>
+        <div class="menu-cat-tag">FOR THE KAARAM</div>
+      </div>
+      <ul class="menu-items">
+        <li class="menu-item"><span class="item-name"><span class="menu-star">★</span>Nannari</span><span class="item-dots"></span><span class="item-price">₹60</span></li>
+        <li class="menu-item"><span class="item-name">Water Bottle 1 Ltr</span><span class="item-dots"></span><span class="item-price">₹20</span></li>
+        <li class="menu-item"><span class="item-name">Water Bottle ½ Ltr</span><span class="item-dots"></span><span class="item-price">₹10</span></li>
+      </ul>
+    </div>
+
+    <!-- SWEETS -->
+    <div class="menu-category">
+      <div class="menu-cat-head">
+        <div class="menu-cat-name">Sweet's</div>
+        <div class="menu-cat-tag">FINISH RIGHT</div>
+      </div>
+      <ul class="menu-items">
+        <li class="menu-item"><span class="item-name">Gulab Jamun</span><span class="item-dots"></span><span class="item-price">₹25</span></li>
+        <li class="menu-item"><span class="item-name">Jamun</span><span class="item-dots"></span><span class="item-price">₹55</span></li>
+      </ul>
+    </div>
+
+    <!-- HOT DRINKS -->
+    <div class="menu-category">
+      <div class="menu-cat-head">
+        <div class="menu-cat-name">Hot Drinks</div>
+        <div class="menu-cat-tag">NON-NEGOTIABLE</div>
+      </div>
+      <ul class="menu-items">
+        <li class="menu-item"><span class="item-name"><span class="menu-star">★</span>Filter Coffee</span><span class="item-dots"></span><span class="item-price">₹20</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="menu-tax-note">PRICES INCLUSIVE OF TAXES — MENU MAY VARY SLIGHTLY BY OUTLET</div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section">
+  <div style="max-width: 1180px; margin: 0 auto 40px;">
+    <div class="section-eyebrow">THE_PLATE</div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-slot">
+      <div style="font-size: 26px; color: var(--orange); opacity: 0.5;">⛶</div>
+      <div>PHOTO — TAWA ACTION</div>
+      <div style="font-size: 9px; opacity: 0.7; text-transform: none;">Dosa being made, ghee on the griddle</div>
+    </div>
+    <div class="gallery-slot">
+      <div style="font-size: 26px; color: var(--orange); opacity: 0.5;">⛶</div>
+      <div>PHOTO — FULL PLATE</div>
+      <div style="font-size: 9px; opacity: 0.7; text-transform: none;">Dosa + 3 chutneys on the leaf, top-down</div>
+    </div>
+    <div class="gallery-slot">
+      <div style="font-size: 26px; color: var(--orange); opacity: 0.5;">⛶</div>
+      <div>PHOTO — OUTLET / CROWD</div>
+      <div style="font-size: 9px; opacity: 0.7; text-transform: none;">Morning rush or storefront</div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto-section">
+  <div class="manifesto-label">// WHY_WE_EXIST</div>
+  <p class="manifesto-text">
+    <strong>No red carpets. No 60-item menu.</strong> Just Rayalaseema breakfast the way it's made in Tadipatri — <span class="org">generous neyyi, honest kaaram,</span> and filter coffee that costs twenty rupees because that's what filter coffee should cost.
+  </p>
+</section>
+
+<!-- LOCATIONS -->
+<section id="locations">
+  <div class="loc-section">
+    <div class="section-eyebrow">FIND_US</div>
+    <h2 class="loc-title">Six outlets.<br>One standard.</h2>
+    <p class="loc-sub">TAP ANY OUTLET FOR DIRECTIONS</p>
+
+    <div class="loc-grid">
+      <div class="loc-card">
+        <div class="loc-card-index">OUTLET_01</div>
+        <div class="loc-card-name">Banjara Hills</div>
+        <div class="loc-card-city">Opp. KBR Park lane, Hyderabad</div>
+        <a href="https://www.google.com/maps/search/Panchakattu+Dosa+Banjara+Hills+Hyderabad" target="_blank" rel="noopener">GET DIRECTIONS →</a>
+      </div>
+      <div class="loc-card">
+        <div class="loc-card-index">OUTLET_02</div>
+        <div class="loc-card-name">Madhapur</div>
+        <div class="loc-card-city">Plot 59, Guttala Begumpet, Hyderabad</div>
+        <a href="https://www.google.com/maps/search/Panchakattu+Dosa+Madhapur+Hyderabad" target="_blank" rel="noopener">GET DIRECTIONS →</a>
+      </div>
+      <div class="loc-card">
+        <div class="loc-card-index">OUTLET_03</div>
+        <div class="loc-card-name">Pragathi Nagar</div>
+        <div class="loc-card-city">Hyderabad</div>
+        <a href="https://www.google.com/maps/search/Panchakattu+Dosa+Pragathi+Nagar+Hyderabad" target="_blank" rel="noopener">GET DIRECTIONS →</a>
+      </div>
+      <div class="loc-card">
+        <div class="loc-card-index">OUTLET_04</div>
+        <div class="loc-card-name">Kondapur</div>
+        <div class="loc-card-city">Hyderabad</div>
+        <a href="https://www.google.com/maps/search/Panchakattu+Dosa+Kondapur+Hyderabad" target="_blank" rel="noopener">GET DIRECTIONS →</a>
+      </div>
+      <div class="loc-card">
+        <div class="loc-card-index">OUTLET_05</div>
+        <div class="loc-card-name">Begumpet</div>
+        <div class="loc-card-city">Hyderabad</div>
+        <a href="https://www.google.com/maps/search/Panchakattu+Dosa+Begumpet+Hyderabad" target="_blank" rel="noopener">GET DIRECTIONS →</a>
+      </div>
+      <div class="loc-card">
+        <div class="loc-card-index">OUTLET_06</div>
+        <div class="loc-card-name">Nallagandla</div>
+        <div class="loc-card-city">Hyderabad</div>
+        <a href="https://www.google.com/maps/search/Panchakattu+Dosa+Nallagandla+Hyderabad" target="_blank" rel="noopener">GET DIRECTIONS →</a>
+      </div>
+    </div>
+
+    <div class="hours-strip">
+      <div class="hours-block">
+        <div class="h-label">Morning Service</div>
+        <div class="h-val">7:00 – 11:00 AM</div>
+      </div>
+      <div class="hours-block">
+        <div class="h-label">Evening Service</div>
+        <div class="h-val">5:00 – 11:30 PM</div>
+      </div>
+      <div class="hours-block">
+        <div class="h-label">Pro Tip</div>
+        <div class="h-val accent">Come before 9 AM</div>
+      </div>
+      <div class="hours-note">HOURS VERIFIED FOR BANJARA HILLS — MAY VARY BY OUTLET. SELF-SERVICE FORMAT. IT GETS PACKED BY 10 AM.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Panchakattu <span>Dosa</span></div>
+  <ul class="footer-links">
+    <li><a href="https://www.instagram.com/panchakattu/" target="_blank" rel="noopener">Instagram</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#locations">Locations</a></li>
+  </ul>
+  <div class="footer-meta">TADIPATRI → HYDERABAD — PRICES INCL. TAXES</div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stat-cell, .menu-category, .loc-card, .spec-item, .gallery-slot').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.55s ease, transform 0.55s ease';
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.menu-category').forEach((c, i) => {
+    c.style.transitionDelay = `${i * 0.07}s`;
+  });
+  document.querySelectorAll('.loc-card').forEach((c, i) => {
+    c.style.transitionDelay = `${i * 0.06}s`;
+  });
+  document.querySelectorAll('.stat-cell').forEach((c, i) => {
+    c.style.transitionDelay = `${i * 0.08}s`;
+  });
+
+  const hero = document.querySelector('.hero');
+  const stage = document.querySelector('.dosa-stage');
+  if (hero && stage) {
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) / r.width;
+      const y = (e.clientY - r.top - r.height / 2) / r.height;
+      stage.style.transform = `translateX(${x * 16}px) translateY(${y * 9}px)`;
+    });
+    hero.addEventListener('mouseleave', () => {
+      stage.style.transform = '';
+    });
+  }
+</script>
+
+</body>
+</html>
